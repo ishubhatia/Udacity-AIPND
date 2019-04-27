@@ -6,6 +6,9 @@ Created on Sat Apr 27 12:32:40 2019
 """
 
 import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
 # Setting the random seed, feel free to change it and see different solutions.
 np.random.seed(42)
 
@@ -25,6 +28,7 @@ def prediction(X, W, b):
 def perceptronStep(X, y, W, b, learn_rate = 0.01):
     # Fill in code
     for i in range(len(X)):
+        
         y_hat = prediction(X[i],W,b)
         if y[i]-y_hat == 1:
             W[0] += X[i][0]*learn_rate
@@ -54,3 +58,10 @@ def trainPerceptronAlgorithm(X, y, learn_rate = 0.01, num_epochs = 25):
         W, b = perceptronStep(X, y, W, b, learn_rate)
         boundary_lines.append((-W[0]/W[1], -b/W[1]))
     return boundary_lines
+
+data = pd.read_csv('data.csv', header=None)
+X = np.array(data[[0,1]])
+y = np.array(data[2])
+
+trainPerceptronAlgorithm(X,y)
+
